@@ -1,70 +1,55 @@
 import React from 'react';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
 import CustomCircularProgress from '.';
+import { Box } from '@mui/material';
 
-// folder structure in storybook interface
 export default {
   title: 'Components/CustomCircularProgress',
   component: CustomCircularProgress,
   argTypes: {
-    value: {
-      control: 'number',
-      description: 'Current value of the progress, from 0 to 100',
-    },
-    size: {
-      control: 'number',
-      description: 'Diameter of the circle',
-    },
-    strokeWidth: {
-      control: 'number',
-      description: 'Width of the stroke',
-    },
+    value: { control: 'number' },
+    size: { control: 'number' },
+    strokeWidth: { control: 'number' },
+    customcolor: { control: 'color' },
+    customfontsize: { control: 'text' },
   },
-};
+} as ComponentMeta<typeof CustomCircularProgress>;
 
-// defining theme
-const theme = createTheme({
-  palette: {
-    background: {
-      default: '#000', // Set the background color for the container
-    },
-    primary: {
-      main: '#A0D7E7', // Set a primary color used in the progress circle
-    },
-  },
-});
-
-const Template = (args) => (
-  <ThemeProvider theme={theme}>
+const Template: ComponentStory<typeof CustomCircularProgress> = (args) => (
+  <Box
+    display="flex"
+    justifyContent="center"
+    alignItems="center"
+    height="100vh"
+  >
     <CustomCircularProgress {...args} />
-  </ThemeProvider>
+  </Box>
 );
 
-export const Default = Template.bind({});
-Default.args = {
-  value: 50,
+export const Primary = Template.bind({});
+
+Primary.args = {
+  value: 45,
   size: 100,
   strokeWidth: 4,
+  customcolor: '#FF6347',
+  customfontsize: '16px',
 };
 
-export const Empty = Template.bind({});
-Empty.args = {
-  value: 0,
-  size: 100,
-  strokeWidth: 4,
-};
-
-export const Full = Template.bind({});
-Full.args = {
-  value: 95,
-  size: 100,
-  strokeWidth: 4,
-};
-
-export const LargeSize = Template.bind({});
-LargeSize.args = {
-  value: 75,
+export const Secondary = Template.bind({});
+Secondary.args = {
+  value: 70,
   size: 150,
-  strokeWidth: 8,
+  strokeWidth: 6,
+  customcolor: '#4682B4',
+  customfontsize: '20px',
 };
 
+export const LargeProgress = Template.bind({});
+LargeProgress.args = {
+  value: 90,
+  size: 200,
+  strokeWidth: 8,
+  customcolor: '#32CD32',
+  customfontsize: '24px',
+};

@@ -4,7 +4,6 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CustomCircularProgress from '.';
 import '@testing-library/jest-dom';
 
-// Create a custom theme to wrap your component in
 const theme = createTheme({
   palette: {
     background: {
@@ -16,13 +15,21 @@ const theme = createTheme({
   },
 });
 
-const renderComponent = (value: number, size: number, strokeWidth: number) =>
+const renderComponent = (
+  value: number,
+  size: number,
+  strokeWidth: number,
+  customcolor?: string,
+  customfontsize?: string | number
+) =>
   render(
     <ThemeProvider theme={theme}>
       <CustomCircularProgress
         value={value}
         size={size}
         strokeWidth={strokeWidth}
+        customcolor={customcolor}
+        customfontsize={customfontsize}
       />
     </ThemeProvider>
   );
@@ -39,7 +46,19 @@ describe('CustomCircularProgress', () => {
     expect(container.firstChild).toHaveStyle('height: 150px');
   });
 
-  // Additional tests to ensure full coverage
-  // Consider testing edge cases like minimum and maximum values
-  // Also test this one later - expect(progressCircle).toHaveStyle('transform: rotate(-90deg)');
+  test('applies custom color and font size correctly', () => {
+    const customcolor = '#FF6347';
+    const customfontsize = '20px';
+    renderComponent(65, 100, 4, customcolor, customfontsize);
+    const percentageText = screen.getByText('65%');
+    expect(percentageText).toHaveStyle(`color: ${customcolor}`);
+    expect(percentageText).toHaveStyle(`font-size: ${customfontsize}`);
+  });
+
+  test('handles extreme values for progress', () => {
+    renderComponent(0, 100, 4);
+    expect(screen.getByText('0%')).toBeInTheDocument();
+    renderComponent(95, 100, 4);
+    expect(screen.getByText('95%')).toBeInTheDocument();
+  });
 });
