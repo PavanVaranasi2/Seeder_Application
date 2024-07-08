@@ -1,6 +1,22 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme } from '@mui/material/styles';
+import '@mui/material/styles';
+import type {} from '@mui/x-data-grid-pro/themeAugmentation';
 
-declare module "@mui/material/styles" {
+declare module '@mui/material/styles' {
+  interface CustomColors {
+    railTrack: string;
+    dueChip: string;
+  }
+  interface CustomPalette {
+    customColors: {
+      railTrack: string;
+      dueChip: string;
+    };
+  }
+
+  interface Palette extends CustomPalette {}
+  interface PaletteOptions extends CustomPalette {}
+
   interface TypographyVariants {
     title: React.CSSProperties;
     heading2: React.CSSProperties;
@@ -9,11 +25,10 @@ declare module "@mui/material/styles" {
     body2: React.CSSProperties;
     caption: React.CSSProperties;
     button: React.CSSProperties & {
-      textTransform?: "none" | "capitalize" | "uppercase" | "lowercase";
+      textTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase';
     };
   }
 
-  // Allows the use of the custom variants in the theme configuration
   interface TypographyVariantsOptions {
     title?: React.CSSProperties;
     heading2?: React.CSSProperties;
@@ -22,17 +37,24 @@ declare module "@mui/material/styles" {
     body2?: React.CSSProperties;
     caption?: React.CSSProperties;
     button?: React.CSSProperties & {
-      textTransform?: "none" | "capitalize" | "uppercase" | "lowercase";
+      textTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase';
     };
   }
 
-  // Extending the existing Palette interface
   interface TypeBackground {
     default: string;
     paper: string;
-    evaluation0: string;
-    evaluation1: string;
-    evaluation2: string;
+    elevation0: string;
+    elevation1: string;
+    elevation2: string;
+  }
+
+  interface Partial<TypeBackground> {
+    default?: string;
+    paper?: string;
+    elevation0?: string;
+    elevation1?: string;
+    elevation2?: string;
   }
 
   interface TypeText {
@@ -44,7 +66,6 @@ declare module "@mui/material/styles" {
     lowEmphasis: string;
   }
 
-  // Palette Start
   interface Palette {
     primary: PaletteColor;
     background: TypeBackground;
@@ -53,9 +74,9 @@ declare module "@mui/material/styles" {
     structural: PaletteStructural;
     Borders: PaletteBorders;
     Icon: PaletteIcon;
+    customColors: CustomColors;
   }
 
-  // Detailed interfaces for each custom property
   interface PaletteColor {
     main: string;
     light: string;
@@ -69,21 +90,7 @@ declare module "@mui/material/styles" {
     white: {
       500: string;
     };
-  }
-
-  interface PaletteColorOptions {
-    main?: string;
-    light?: string;
-    dark?: string;
-    contrastText?: string;
-    purple?: {
-      500?: string;
-      400?: string;
-      600?: string;
-    };
-    white?: {
-      500?: string;
-    };
+    customColor: CustomColors;
   }
 
   interface PaletteStructural {
@@ -121,8 +128,7 @@ declare module "@mui/material/styles" {
   }
 }
 
-// Extend the TypographyProps to include the custom variants
-declare module "@mui/material/Typography" {
+declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
     title: true;
     heading2: true;
@@ -134,163 +140,223 @@ declare module "@mui/material/Typography" {
   }
 }
 
-// Define custom typography
 const typography = {
   fontFamily: '"Gilroy", "Helvetica", "Arial", sans-serif',
 
-  // Title
   title: {
-    fontSize: "36px", // 36px
-    fontWeight: 700, // Bold
-    lineHeight: "42px",
-    letterSpacing: "-0.015em",
+    fontSize: '36px',
+    fontWeight: 700,
+    lineHeight: '42px',
+    letterSpacing: '-0.015em',
   },
 
-  // Heading 2
   heading2: {
-    fontSize: "24px", // 24px
-    fontWeight: 600, // Bold
-    lineHeight: "29.4px",
-    letterSpacing: "-0.005em",
+    fontSize: '24px',
+    fontWeight: 600,
+    lineHeight: '29.4px',
+    letterSpacing: '-0.005em',
   },
 
-  // Heading 3
   heading3: {
-    fontSize: "18px", // 18px
-    fontWeight: 500, // Medium
-    lineHeight: "27px",
+    fontSize: '18px',
+    fontWeight: 500,
+    lineHeight: '27px',
   },
 
-  // Body 1
   body1: {
-    fontSize: "16px", // 16px
-    fontWeight: 500, // Medium
-    lineHeight: "22.4px",
+    fontSize: '16px',
+    fontWeight: 500,
+    lineHeight: '22.4px',
   },
 
-  // Body 2
   body2: {
-    fontSize: "14px", // 14px
-    fontWeight: 600, // Semibold
-    lineHeight: "17.15px",
-    letterSpacing: "0.01em",
+    fontSize: '14px',
+    fontWeight: 600,
+    lineHeight: '17.15px',
+    letterSpacing: '0.01em',
   },
 
-  // Caption
   caption: {
-    fontSize: "12px", // 12px
-    fontWeight: 500, // Medium
-    lineHeight: "14.56px",
-    letterSpacing: "0.02em",
+    fontSize: '12px',
+    fontWeight: 500,
+    lineHeight: '14.56px',
+    letterSpacing: '0.02em',
   },
 
-  // Button
   button: {
-    fontSize: "16px", // 16px
-    fontWeight: 600, // Semibold
-    lineHeight: "19px",
-    textTransform: "none" as "none", // Ensures buttons do not transform text to uppercase
+    fontSize: '16px',
+    fontWeight: 600,
+    lineHeight: '19px',
+    textTransform: 'none' as 'none',
   },
 };
 
-// Define custom palette
 const palette = {
   primary: {
-    main: "#6C5DD3",
-    light: "#B4A9FF",
-    dark: "#393552",
-    contrastText: "#E8E8E9",
+    main: '#6C5DD3',
+    light: '#B4A9FF',
+    dark: '#393552',
+    contrastText: '#E8E8E9',
     purple: {
-      500: "#6C5DD3",
-      400: "#B4A9FF",
-      600: "#393552",
+      500: '#6C5DD3',
+      400: '#B4A9FF',
+      600: '#393552',
     },
     white: {
-      500: "#E8E8E9",
+      500: '#E8E8E9',
     },
   },
   text: {
-    primary: "#fff",
-    secondary: "#f22",
-    disabled: "#000",
-    highEmphasis: "#E8E7F0", // text/high emphasis
-    mediumEmphasis: "#C9C8CC", // text/medium emp
-    lowEmphasis: "#A5A5A6", // text/low emp
+    primary: '#fff',
+    secondary: '#f22',
+    disabled: '#000',
+    highEmphasis: '#E8E7F0',
+    mediumEmphasis: '#C9C8CC',
+    lowEmphasis: '#A5A5A6',
   },
   background: {
-    paper: "#fff",
-    default: "#000",
-    elevation0: "#19181C", // background/elevation 0
-    elevation1: "#201F24", // background/elevation 1
-    elevation2: "#2D2D30", // background/elevation 2
+    paper: '#fff',
+    default: '#000',
+    elevation0: '#19181C',
+    elevation1: '#201F24',
+    elevation2: '#2D2D30',
   },
-  divider: "#393552", // divider color
+  divider: '#393552',
   structural: {
-    background: "#19181C", // Structural Colors/Backgrounds
+    background: '#19181C',
     grey: {
-      100: "#262529", // Structural Colors/greys
+      100: '#262529',
     },
   },
   Borders: {
-    highEmphasis: "#413F4D", // Borders/high emp
-    lowEmphasis: "#28272B", // Borders/low emp
+    highEmphasis: '#413F4D',
+    lowEmphasis: '#28272B',
   },
   Icon: {
-    highEmphasis: "#D4D2DE", // Icon/high emp
-    lowEmphasis: "#727080", // Icon/low emp
+    highEmphasis: '#D4D2DE',
+    lowEmphasis: '#727080',
+  },
+  customColors: {
+    railTrack: '#3A3A3D',
+    dueChip: '#E39AB2',
   },
 };
 
-// Define the theme
 const theme = createTheme({
-  spacing: [0, 4, 8, 12, 16, 20, 24, 32],
+  spacing: [0, 4, 8, 12, 16, 20, 24, 32, 40],
 
   typography,
   palette,
 
   components: {
-    // Customize MUI Button component styles
     MuiButton: {
       styleOverrides: {
         root: {
-          // You can add general styles that apply to all buttons here
-          fontSize: "16px",
-          lineHeight: "19px",
-          textAlign: "center",
-          borderRadius: "12px",
-          color: palette.primary.white["500"],
+          fontSize: '16px',
+          lineHeight: '19px',
+          textAlign: 'center',
+          borderRadius: '12px',
+          color: palette.primary.white['500'],
         },
         sizeSmall: {
-          // Styles for small buttons
-          padding: "6px 12px",
+          padding: '6px 12px',
         },
         sizeLarge: {
-          // Styles for large buttons
-          padding: "20px 40px",
+          padding: '20px 40px',
         },
         containedPrimary: {
-          backgroundColor: palette.primary.purple["500"], // Purple Primary Button
-          padding: "12px 24px",
+          backgroundColor: palette.primary.purple['500'],
+          padding: '12px 24px',
         },
         containedSecondary: {
-          backgroundColor: palette.primary.white["500"], // White Primary Button
-          color: "#201F24",
-          padding: "12px 24px",
+          backgroundColor: palette.primary.white['500'],
+          color: '#201F24',
+          padding: '12px 24px',
         },
         outlined: {
-          borderColor: "#E8E8E9", // Outlined Button
-          color: "#E8E8E9",
-          border: "1px solid #E8E8E9",
-          padding: "12px 24px",
+          borderColor: palette.primary.purple['500'],
+          color: '#C9C8CC',
+          padding: '12px 24px',
         },
         text: {
-          color: "#B4A9FF", // Text Button
-          padding: "4px 12px",
-          fontWeight: "600",
+          color: '#B4A9FF',
+          padding: '4px 12px',
+          fontWeight: '600',
         },
       },
     },
-    // Customize other components as needed
+
+    MuiDataGrid: {
+      styleOverrides: {
+        root: {
+          borderWidth: '0px',
+          borderStyle: 'none',
+          borderColor: 'transparent',
+          '--DataGrid-rowBorderColor': 'transparent',
+          background: palette.structural.background,
+          '& .MuiDataGrid-row.Mui-selected': {
+            backgroundColor: palette.primary.purple['600'],
+          },
+          '& .MuiDataGrid-row': {
+            alignItems: 'center',
+            paddingTop: '10px',
+            paddingBottom: '10px',
+          },
+          '& .MuiDataGrid-overlay': {
+            backgroundColor: 'transparent',
+            color: 'transparent',
+          },
+          '& .MuiDataGrid-root': {
+            borderWidth: '0px',
+          },
+          '.MuiDataGrid-columnSeparator': {
+            display: 'none',
+          },
+          '& .MuiDataGrid-columnHeaders': {
+            borderRadius: '17px 17px 0 0',
+            background: palette.structural.grey['100'],
+          },
+          '& .MuiDataGrid-columnHeaderCheckbox': {
+            background: palette.structural.grey['100'],
+          },
+          '& .super-app-theme--cell': {
+            padding: '10px',
+            display: 'grid',
+            placeItems: 'center',
+          },
+          '& .super-app-theme--header': {
+            background: palette.structural.grey['100'],
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+          },
+          '& .MuiDataGrid-virtualScroller::-webkit-scrollbar': {
+            height: '8px',
+          },
+          '& .MuiDataGrid-virtualScroller::-webkit-scrollbar-track': {
+            background: palette.structural.background,
+            height: '15px',
+            borderRadius: '4px',
+            padding: '4px 3px',
+          },
+          '& .MuiDataGrid-virtualScroller::-webkit-scrollbar-thumb': {
+            backgroundColor: palette.Icon.lowEmphasis,
+            borderRadius: '20px',
+            height: '8px',
+          },
+          '& .MuiDataGrid-root .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-root .MuiDataGrid-cell:focus':
+            {
+              outline: 'none !important',
+            },
+          '& .MuiDataGrid-root .MuiDataGrid-columnHeader:focus-within': {
+            outline: 'none !important',
+          },
+          '& .MuiDataGrid-root .MuiDataGrid-cell:focus-within': {
+            outline: 'none !important',
+          },
+        },
+      },
+    },
   },
 });
 

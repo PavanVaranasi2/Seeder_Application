@@ -1,10 +1,7 @@
 import React from 'react';
-import './styles/App.css';
 
-export default function App() {
-  return (
-    <div>
-      <p>Seeder Application</p>
-    </div>
-  );
-}
+const App = () => {
+  return <div>Seeder Application</div>;
+};
+
+export default App;

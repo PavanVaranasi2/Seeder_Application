@@ -1,12 +1,10 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
 import '@testing-library/jest-dom';
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import App from './App';
 
-describe('App component', () => {
-  test('renders Seeder Application text', () => {
-    const { getByText } = render(<App />);
-    const textElement = getByText(/Seeder Application/i);
-    expect(textElement).toBeInTheDocument();
-  });
+test('renders Seeder Application text', () => {
+  render(<App />);
+  const linkElement = screen.getByText(/Seeder Application/i);
+  expect(linkElement).toBeInTheDocument();
 });

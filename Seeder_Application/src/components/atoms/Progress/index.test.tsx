@@ -1,19 +1,9 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import CustomCircularProgress from '.';
 import '@testing-library/jest-dom';
-
-const theme = createTheme({
-  palette: {
-    background: {
-      default: '#fff',
-    },
-    primary: {
-      main: '#A0D7E7',
-    },
-  },
-});
+import theme from '../../../theme';
 
 const renderComponent = (
   value: number,
